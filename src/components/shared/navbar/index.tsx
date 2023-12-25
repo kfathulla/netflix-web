@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import SearchBar from "@/components/shared/navbar/search-bar";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
-// import MoviePopup from "@/components/shared/movie/movie-popup";
+import MoviePopup from "@/components/shared/movie/movie-popup";
 import axios from "axios";
 import { AccountProps, AccountResponse } from "@/types";
 import { toast } from "@/components/ui/use-toast";
@@ -97,7 +97,7 @@ const Navbar = () => {
           </ul>
         </div>
 
-        {/* <MoviePopup /> */}
+        <MoviePopup />
 
         <div className={"font-light flex items-center space-x-4 text-sm"}>
           {showSearchBar ? (

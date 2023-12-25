@@ -5,6 +5,7 @@ import Loader from '@/components/shared/loader';
 import Login from '@/components/shared/login';
 import ManageAccount from '@/components/shared/manage-account';
 import { useGlobalContext } from '@/context';
+import { getPopularMovies, getTopratedMovies, getTrendingMovies } from '@/lib/api';
 import { MovieDataProps, MovieProps } from '@/types';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
@@ -17,36 +18,36 @@ const Page = () => {
     useEffect(() => {
         const getAllMovies = async () => {
             try {
-                // const [trendingTv, topRatedTv, popularTv, trendingMovie, topRatedMovie, popularMovie] = await Promise.all([
-                //     getTrendingMovies("tv"),
-                //     getTopratedMovies("tv"),
-                //     getPopularMovies("tv"),
+                const [trendingTv, topRatedTv, popularTv, trendingMovie, topRatedMovie, popularMovie] = await Promise.all([
+                    getTrendingMovies("tv"),
+                    getTopratedMovies("tv"),
+                    getPopularMovies("tv"),
 
-                //     getTrendingMovies("movie"),
-                //     getTopratedMovies("movie"),
-                //     getPopularMovies("movie"),
-                // ])
+                    getTrendingMovies("movie"),
+                    getTopratedMovies("movie"),
+                    getPopularMovies("movie"),
+                ])
 
-                // const tvShows: MovieDataProps[] = [
-                //     { title: "Trending TV Shows", data: trendingTv },
-                //     { title: "Top Rated TV Shows", data: topRatedTv },
-                //     { title: "Popular TV Shows", data: popularTv },
-                // ].map(item => ({
-                //     ...item,
-                //     data: item.data.map((movie: MovieProps) => ({ ...movie, type: "tv", addedToFavorites: false }))
-                // }))
+                const tvShows: MovieDataProps[] = [
+                    { title: "Trending TV Shows", data: trendingTv },
+                    { title: "Top Rated TV Shows", data: topRatedTv },
+                    { title: "Popular TV Shows", data: popularTv },
+                ].map(item => ({
+                    ...item,
+                    data: item.data.map((movie: MovieProps) => ({ ...movie, type: "tv", addedToFavorites: false }))
+                }))
 
-                // const moviesShows: MovieDataProps[] = [
-                //     { title: "Trending Movies", data: trendingMovie },
-                //     { title: "Top Rated Movies", data: topRatedMovie },
-                //     { title: "Popular Movies", data: popularMovie },
-                // ].map(item => ({
-                //     ...item,
-                //     data: item.data.map((movie: MovieProps) => ({ ...movie, type: "movie", addedToFavorites: false }))
-                // }))
+                const moviesShows: MovieDataProps[] = [
+                    { title: "Trending Movies", data: trendingMovie },
+                    { title: "Top Rated Movies", data: topRatedMovie },
+                    { title: "Popular Movies", data: popularMovie },
+                ].map(item => ({
+                    ...item,
+                    data: item.data.map((movie: MovieProps) => ({ ...movie, type: "movie", addedToFavorites: false }))
+                }))
 
-                // const allMovies = [...moviesShows, ...tvShows]
-                setMoviesData([])
+                const allMovies = [...moviesShows, ...tvShows]
+                setMoviesData(allMovies)
             } catch (e) {
                 console.log(e)
             } finally {
